@@ -1,9 +1,2 @@
-# ignore vscode config file
-/.vscode
-
-#ignore venv file
-/venv
-
-.env
-
-/__pycache__
+__pycache__/
+venv/
