@@ -1,3 +1,12 @@
+import requests
+
+def grab_content(title):
+    url = 'https://en.wikipedia.org/w/api.php?action=parse&format=json&prop=wikitext&page='
+    data = requests.get(url + title).json()
+    content = data['parse']['wikitext']['*']
+    return(content)
+
+
 def remove_brackets(string):
     to_add = True
     letter_counter = 2
@@ -54,3 +63,10 @@ def find_links(string):
             output[index] += c[1]
 
     return(output)
+
+
+def get_all_links(title):
+    content = grab_content(title)
+    parsed = remove_brackets(content)
+    links = find_links(parsed)
+    return(links)
