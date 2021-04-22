@@ -27,3 +27,13 @@ def add_underscores(links):
         newlink = link.replace(' ', '_')
         output.append(newlink)
     return(output)
+
+
+# generate all valid links
+def generate_links(title):
+    links = get_all_links(title)
+    links = find_valid(links)
+    links = first_word(links, '|')
+    links = first_word(links, '#')
+    links = add_underscores(links)
+    return(links)
