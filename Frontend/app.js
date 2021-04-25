@@ -1,8 +1,12 @@
-var events = require('events')
+const express = require('express')
+const app = express()
+app.set('view engine', 'ejs')
+app.listen(3000)
 
-var myEmitter = new events.EventEmitter()
-myEmitter.on('someEvent', msg => {
-    console.log(msg)
+app.get('/', (req, res) => {
+    res.render('index.ejs')
 })
 
-myEmitter.emit('someEvent', 'The Event Was Emitted')
+app.use((req, res) => {
+    res.status(404).render('error.ejs')
+})
