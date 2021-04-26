@@ -1,5 +1,20 @@
 body {
-    max-width: 1200px;
+    max-width: 800px;
     margin: 20px auto;
     font-family: 'Trebuchet MS';
+}
+
+input[type=text] {
+    float: left;
+    width: 300px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+#search {
+    border: none;
+    background-color: aqua;
+    padding: 12px 20px;
+    float: right;
 }
