@@ -12,13 +12,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static(__dirname + '/views'))
 
-axios.get('http://127.0.0.1:5000/?title=salt')
-    .then(res => {
-        console.log(res.data.links[0])
-    }).catch(err => {
-        console.log(err)
-    })
-
 app.get('/', (req, res) => {
     res.render('index.ejs')
 })
@@ -27,10 +20,22 @@ app.use((req, res) => {
     res.status(404).render('error.ejs')
 })
 
+var obtain_next_link = async (io, link) => {
+    var title = link
+    while (title != 'Outline_of_philosophy') {
+        res = await axios.get('http://127.0.0.1:5000/?title=' + title)
+        var data = res.data.links[0]
+        io.emit('result', data)
+        title = data
+    }
+}
+
 io.on('connection', socket => {
     console.log('a user connected');
     socket.on('search', search_term => {
         console.log(search_term)
+        io.emit('clear')
+        obtain_next_link(io, search_term)
     })
 });
 
